@@ -183,6 +183,7 @@ target_compile_definitions(easy_profiler PRIVATE
 if (NOT BUILD_SHARED_LIBS)
     target_compile_definitions(easy_profiler PUBLIC -DEASY_PROFILER_STATIC=1)
 endif ()
+if( EASY_PROFILER_PROFILE )
 target_compile_definitions(easy_profiler PUBLIC
     -DEASY_PROFILER_VERSION_MAJOR=${EASY_PROGRAM_VERSION_MAJOR}
     -DEASY_PROFILER_VERSION_MINOR=${EASY_PROGRAM_VERSION_MINOR}
@@ -190,7 +191,15 @@ target_compile_definitions(easy_profiler PUBLIC
     -DEASY_DEFAULT_PORT=${EASY_DEFAULT_PORT}
     -DBUILD_WITH_EASY_PROFILER=1
 )
-
+else()
+target_compile_definitions(easy_profiler PUBLIC
+    -DEASY_PROFILER_VERSION_MAJOR=${EASY_PROGRAM_VERSION_MAJOR}
+    -DEASY_PROFILER_VERSION_MINOR=${EASY_PROGRAM_VERSION_MINOR}
+    -DEASY_PROFILER_VERSION_PATCH=${EASY_PROGRAM_VERSION_PATCH}
+    -DEASY_DEFAULT_PORT=${EASY_DEFAULT_PORT}
+    -DBUILD_WITH_EASY_PROFILER=0
+)
+endif(EASY_PROFILER_PROFILE)
 
 
 #####################################################################
